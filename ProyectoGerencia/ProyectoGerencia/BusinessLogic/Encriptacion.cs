@@ -37,6 +37,10 @@ namespace ProyectoGerencia.BusinessLogic
 
         public string Desencriptar(string text)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return "";
+            }
             string code = "";
             for (int i = 0; i < text.Length; i++)
             {

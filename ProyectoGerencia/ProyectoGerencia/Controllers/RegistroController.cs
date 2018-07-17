@@ -31,12 +31,12 @@ namespace ProyectoGerencia.Controllers
             using (Context context = new Context())
             {
                 bool error = false;
-                if (context.Personas.SingleOrDefault(s => s.Identificacion == ViewModel.Identificacion) != null)
+                if (context.Personas.SingleOrDefault(s => s.Identificacion.Equals(ViewModel.Identificacion)) != null)
                 {
                     ViewBag.Error = "La identificación ya existe registrada";
                     error = true;
                 }
-                else if (context.Cuentas.SingleOrDefault(s => s.Correo == ViewModel.Correo) != null)
+                else if (context.Cuentas.SingleOrDefault(s => s.Correo.Equals(ViewModel.Correo)) != null)
                 {
                     ViewBag.Error = "El correo ya está en uso, por favor digite uno nuevo";
                     error = true;
@@ -84,12 +84,52 @@ namespace ProyectoGerencia.Controllers
 
         public ActionResult Confirmacion(string c)
         {
-            return View();
+            string Email = new Encriptacion().Desencriptar(c);
+
+            Context context = new Context();
+            Cuenta Account = context.Cuentas.SingleOrDefault(s => s.Correo.Equals(Email));
+            if (Account == null || Account.Activado)
+            {
+                return new HttpNotFoundResult();
+            }
+
+            return View(new ConfirmacionVM() { TerminosCondiciones = false, Correo = Email });
+        }
+
+        [HttpPost]
+        public ActionResult Confirmacion(ConfirmacionVM model)
+        {
+            Context context = new Context();
+            Cuenta account = context.Cuentas.SingleOrDefault(s => s.Correo.Equals(model.Correo));
+
+            if (account != null)
+            {
+                if (account.CodigoDeVerificacion.Equals(model.CodigoVerificacion))
+                {
+                    account.Contrasena = new Encriptacion().Encriptar(model.Contrasena);
+                    account.Activado = true;
+
+                    context.SaveChanges();
+
+                    return RedirectToAction("PostActivacion", "Registro");
+                }
+                else
+                {
+                    ViewBag.Error = "Código de activación erroneo";
+                    return View(model);
+                }
+            }
+            return new HttpNotFoundResult(); ;
         }
 
         public ActionResult NotificarActivacion(NotificarActivacionVM vm)
         {
             ViewBag.correo = vm.email;
+            return View();
+        }
+
+        public ActionResult PostActivacion()
+        {
             return View();
         }
 

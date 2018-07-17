@@ -1,0 +1,80 @@
+﻿@model ProyectoGerencia.ViewModels.RegistroNormalVMs.ConfirmacionVM
+
+@{
+    ViewBag.Title = "Activación de cuenta";
+}
+
+<h2>Activación de cuenta</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (!String.IsNullOrEmpty(ViewBag.Error))
+    {
+        <div class="alert alert-danger">
+            @ViewBag.Error
+        </div>
+    }
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "form-control" } })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CodigoVerificacion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CodigoVerificacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CodigoVerificacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Contrasena, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Contrasena, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Contrasena, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Confirmacion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Confirmacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Confirmacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.CheckBoxFor(x => x.TerminosCondiciones)
+                @Html.LabelFor(model => model.TerminosCondiciones, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ValidationMessageFor(model => model.TerminosCondiciones, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Activar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var defaultRangeValidator = $.validator.methods.range;
+        $.validator.methods.range = function (value, element, param) {
+            if (element.type === 'checkbox') {
+                return element.checked;
+            } else {
+                return defaultRangeValidator.call(this, value, element, param);
+            }
+        }
+    </script>
+}

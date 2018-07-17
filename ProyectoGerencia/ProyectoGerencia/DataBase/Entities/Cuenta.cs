@@ -18,6 +18,7 @@ namespace ProyectoGerencia.DataBase.Entities
         public string Contrasena { get; set; }
         [Required]
         public bool Activado { get; set; }
+        [StringLength(10)]
         public string CodigoDeVerificacion { get; set; }
 
         public virtual Persona Persona { get; set; }
