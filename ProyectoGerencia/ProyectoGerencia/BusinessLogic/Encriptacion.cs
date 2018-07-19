@@ -7,7 +7,7 @@ namespace ProyectoGerencia.BusinessLogic
 {
     public class Encriptacion
     {
-        private string chars = "FqwA5e*rt!yZ16ui)oVpSXa]sNd7fG(ghP2jk{BlzODH8x@cvbCn3mQW0ER%T.YU4I}_+[JK#LM$^9&'";
+        private string chars = "FqwA5e*rt!yZ16ui)oVpSXa]sNd7fG(ghP2jk{BlzODH8x@cvbCn3mQW0ERT.YU4I}_+[JK#LM$^9&'";
 
         public string Encriptar(string text)
         {
