@@ -146,13 +146,16 @@ namespace ProyectoGerencia.Controllers
             {
                 if(Operador.Operadores.Count > 0)
                 {
-                    using(var Context = new Context())
+                    string Cod = GenerarCodigo();
+                    using (var Context = new Context())
                     {
                         var PersonaJuridica = Context.PersonasJuridicas.Add(new DataBase.Entities.PersonaJuridica
                         {
                             Contrasena = Operador.ContrasenaPersonaJuridica,
                             Correo = Operador.CorreoElectronicoPersonaJuridica,
                             Documento = Operador.Documento,
+                            Activacion = false,
+                            Codigo = Cod,
                             Operadores = new List<Cuenta>(),
                             RepresentanteLegales = new List<RepresentanteLegal>()
                         });
@@ -180,7 +183,7 @@ namespace ProyectoGerencia.Controllers
 
                         Context.SaveChanges();
                     }
-                    return RedirectToAction("ConfirmacionRegistro", "PersonaJuridica", new { Email = Operador.CorreoElectronicoPersonaJuridica });
+                    return RedirectToAction("ConfirmacionRegistro", "PersonaJuridica", new { Email = Operador.CorreoElectronicoPersonaJuridica, Codigo = Cod });
                 }
                 ViewBag.Error = "Es necesario registrar operadores";
                 return View(Operador);
@@ -211,11 +214,46 @@ namespace ProyectoGerencia.Controllers
         }
 
 
-        public ActionResult ConfirmacionRegistro(string Email)
+        public ActionResult ConfirmacionRegistro(string Email, string Codigo)
         {
-            new EmailService().SendEmail(Email, "1234");
+            new EmailService().SendEmail(Email, Codigo, "PersonaJuridica/Confirmacion");
             ViewBag.correo = Email;
             return View();
+        }
+
+        private string GenerarCodigo()
+        {
+            Context context = new Context();
+
+            const string chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890!@#$%^&*()_+'[]{}";
+            string code;
+            Random rnd = new Random();
+            do
+            {
+                code = "";
+                for (int i = 0; i < 10; i++)
+                {
+                    code += chars[rnd.Next(chars.Length)];
+                }
+            } while (context.Cuentas.Where(s => s.CodigoDeVerificacion == code).FirstOrDefault() != null);
+
+            return code;
+        }
+
+        public ActionResult Confirmacion(string Email)
+        {
+            Email = new Encriptacion().Desencriptar(Email);
+            using(Context Context = new Context())
+            {
+                var Persona = Context.PersonasJuridicas.Where(x => x.Correo == Email && !x.Activacion).SingleOrDefault();
+                if (Persona != null)
+                {
+                    Persona.Activacion = true;
+                    Context.SaveChanges();
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

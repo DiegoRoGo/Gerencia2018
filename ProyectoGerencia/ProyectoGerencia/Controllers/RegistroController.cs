@@ -77,7 +77,7 @@ namespace ProyectoGerencia.Controllers
                 context.SaveChanges();
             }
             //Se envia el correo
-            new EmailService().SendEmail(per.Cuenta.Correo, per.Cuenta.CodigoDeVerificacion);
+            new EmailService().SendEmail(per.Cuenta.Correo, per.Cuenta.CodigoDeVerificacion, "Registro/Confirmacion");
             //Se redirecciona
             return RedirectToAction("NotificarActivacion", "Registro", new NotificarActivacionVM() { email = per.Cuenta.Correo });
         }

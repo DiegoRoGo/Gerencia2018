@@ -9,7 +9,7 @@ namespace ProyectoGerencia.BusinessLogic
 {
     public class EmailService
     {
-        public void SendEmail(string pEmail, string pCode)
+        public void SendEmail(string pEmail, string pCode, string Directory)
         {
             // Command line argument must the the SMTP host.
             SmtpClient client = new SmtpClient
@@ -32,7 +32,7 @@ namespace ProyectoGerencia.BusinessLogic
             string body = $"Este correo fue enviado automáticamente para activar su cuenta.\n\n" +
                 $"Su código de confirmación es: {pCode}\n\n" +
                 $"Ingreselo en el siguiente link para activar su cuenta, y a su vez cree su contraseña.\n\n" +
-                $"Link para activar su cuenta: localhost:50420/Registro/Confirmacion?c={new Encriptacion().Encriptar(pEmail)}";
+                $"Link para activar su cuenta: localhost:50420/" + Directory + "?c={new Encriptacion().Encriptar(pEmail)}";
 
             // Specify the subject
             string subject = "Confirmacion de la cuenta del proyecto de Gerencia";

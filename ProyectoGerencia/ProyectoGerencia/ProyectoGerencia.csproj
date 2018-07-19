@@ -225,6 +225,7 @@
     <Content Include="Views\Registro\Terminos.cshtml" />
     <Content Include="Views\PersonaJuridica\RegistroDeOperadores.cshtml" />
     <Content Include="Views\PersonaJuridica\ConfirmacionRegistro.cshtml" />
+    <Content Include="Views\PersonaJuridica\Confirmacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
