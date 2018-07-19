@@ -32,6 +32,6 @@ namespace ProyectoGerencia.ViewModels.RegistroNormalVMs
         [Required(ErrorMessage = "El archivo es requerido")]
         public HttpPostedFileBase postedFile { get; set; }
 
-
+        public string NombreDoc { get; set; }
     }
 }

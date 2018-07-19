@@ -18,8 +18,6 @@ namespace ProyectoGerencia.DataBase.Entities
 
         public bool Activacion { get; set; }
 
-        public string Codigo { get; set; }
-
         public virtual ICollection<Cuenta> Operadores { get; set; }
 
         public virtual ICollection<RepresentanteLegal> RepresentanteLegales { get; set; }

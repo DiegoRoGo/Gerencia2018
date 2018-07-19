@@ -39,13 +39,8 @@ namespace ProyectoGerencia.Controllers
                     Directory.CreateDirectory(path);
                 }
                 Persona.postedFile.SaveAs(path + Path.GetFileName(Persona.postedFile.FileName));
-                RegistroRepresentanteLegalVM Representante = new RegistroRepresentanteLegalVM()
-                {
-                    CorreoElectronicoPersonaJuridica = Persona.CorreoElectronico,
-                    ContrasenaPersonaJuridica = Persona.Contrasena,
-                    Documento = Persona.postedFile.FileName
-                };
-
+                Persona.NombreDoc = Persona.postedFile.FileName;
+                
                 return RedirectToAction("RegistrarPrimerRepresentante", "PersonaJuridica", Persona);
             }
             return View();
@@ -62,7 +57,8 @@ namespace ProyectoGerencia.Controllers
                     new SelectListItem { Value = "3", Text = "Pasaporte" }
                 },
                 ContrasenaPersonaJuridica = Persona.Contrasena,
-                CorreoElectronicoPersonaJuridica = Persona.CorreoElectronico
+                CorreoElectronicoPersonaJuridica = Persona.CorreoElectronico,
+                Documento = Persona.NombreDoc
             });
         }
 
@@ -146,7 +142,6 @@ namespace ProyectoGerencia.Controllers
             {
                 if(Operador.Operadores.Count > 0)
                 {
-                    string Cod = GenerarCodigo();
                     using (var Context = new Context())
                     {
                         var PersonaJuridica = Context.PersonasJuridicas.Add(new DataBase.Entities.PersonaJuridica
@@ -155,7 +150,6 @@ namespace ProyectoGerencia.Controllers
                             Correo = Operador.CorreoElectronicoPersonaJuridica,
                             Documento = Operador.Documento,
                             Activacion = false,
-                            Codigo = Cod,
                             Operadores = new List<Cuenta>(),
                             RepresentanteLegales = new List<RepresentanteLegal>()
                         });
@@ -183,7 +177,7 @@ namespace ProyectoGerencia.Controllers
 
                         Context.SaveChanges();
                     }
-                    return RedirectToAction("ConfirmacionRegistro", "PersonaJuridica", new { Email = Operador.CorreoElectronicoPersonaJuridica, Codigo = Cod });
+                    return RedirectToAction("ConfirmacionRegistro", "PersonaJuridica", new { Email = Operador.CorreoElectronicoPersonaJuridica });
                 }
                 ViewBag.Error = "Es necesario registrar operadores";
                 return View(Operador);
@@ -214,38 +208,19 @@ namespace ProyectoGerencia.Controllers
         }
 
 
-        public ActionResult ConfirmacionRegistro(string Email, string Codigo)
+        public ActionResult ConfirmacionRegistro(string Email)
         {
-            new EmailService().SendEmail(Email, Codigo, "PersonaJuridica/Confirmacion");
+            new EmailService().SendEmail(Email, "PersonaJuridica/Confirmacion");
             ViewBag.correo = Email;
             return View();
         }
 
-        private string GenerarCodigo()
+        public ActionResult Confirmacion(string C)
         {
-            Context context = new Context();
-
-            const string chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890!@#$%^&*()_+'[]{}";
-            string code;
-            Random rnd = new Random();
-            do
-            {
-                code = "";
-                for (int i = 0; i < 10; i++)
-                {
-                    code += chars[rnd.Next(chars.Length)];
-                }
-            } while (context.Cuentas.Where(s => s.CodigoDeVerificacion == code).FirstOrDefault() != null);
-
-            return code;
-        }
-
-        public ActionResult Confirmacion(string Email)
-        {
-            Email = new Encriptacion().Desencriptar(Email);
+            C = new Encriptacion().Desencriptar(C);
             using(Context Context = new Context())
             {
-                var Persona = Context.PersonasJuridicas.Where(x => x.Correo == Email && !x.Activacion).SingleOrDefault();
+                var Persona = Context.PersonasJuridicas.Where(x => x.Correo == C && !x.Activacion).SingleOrDefault();
                 if (Persona != null)
                 {
                     Persona.Activacion = true;
