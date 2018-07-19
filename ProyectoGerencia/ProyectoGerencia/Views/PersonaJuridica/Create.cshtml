@@ -6,7 +6,7 @@
 
 <h2>Registro de persona jurídica</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "PersonaJuridica", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -43,6 +43,9 @@
                 @Html.ValidationMessageFor(model => model.ConfirmarContrasena, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <span>Select File:</span>
+            <input type="file" name="postedFile"/>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

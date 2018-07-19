@@ -4,6 +4,7 @@ using ProyectoGerencia.DataBase.Entities;
 using ProyectoGerencia.ViewModels.RegistroNormalVMs;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,14 +28,22 @@ namespace ProyectoGerencia.Controllers
                 {
                     if (Context.PersonasJuridicas.Any(x => x.Correo == Persona.CorreoElectronico))
                     {
+                        ViewBag.Error = "Ya hay un usuario con este correo.";
                         return View(new RegistroPersonaJuridicaVM());
                     }
                 }
 
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                Persona.postedFile.SaveAs(path + Path.GetFileName(Persona.postedFile.FileName));
                 RegistroRepresentanteLegalVM Representante = new RegistroRepresentanteLegalVM()
                 {
                     CorreoElectronicoPersonaJuridica = Persona.CorreoElectronico,
-                    ContrasenaPersonaJuridica = Persona.Contrasena
+                    ContrasenaPersonaJuridica = Persona.Contrasena,
+                    Documento = Persona.postedFile.FileName
                 };
 
                 return RedirectToAction("RegistrarPrimerRepresentante", "PersonaJuridica", Persona);
@@ -85,6 +94,7 @@ namespace ProyectoGerencia.Controllers
                 },
                 CorreoElectronicoPersonaJuridica = RepresentanteLegal.CorreoElectronicoPersonaJuridica,
                 ContrasenaPersonaJuridica = RepresentanteLegal.ContrasenaPersonaJuridica,
+                Documento = RepresentanteLegal.Documento,
                 CorreoRep1 = RepresentanteLegal.Correo,
                 IdentificacionRep1 = RepresentanteLegal.Identificacion,
                 NombreRep1 = RepresentanteLegal.Nombre,
@@ -117,6 +127,7 @@ namespace ProyectoGerencia.Controllers
             {
                 ContrasenaPersonaJuridica = Representante.ContrasenaPersonaJuridica,
                 CorreoElectronicoPersonaJuridica = Representante.CorreoElectronicoPersonaJuridica,
+                Documento = Representante.Documento,
                 CorreoRep1 = Representante.CorreoRep1,
                 CorreoRep2 = Representante.CorreoElect,
                 IdentificacionRep1 = Representante.IdentificacionRep1,
@@ -141,6 +152,7 @@ namespace ProyectoGerencia.Controllers
                         {
                             Contrasena = Operador.ContrasenaPersonaJuridica,
                             Correo = Operador.CorreoElectronicoPersonaJuridica,
+                            Documento = Operador.Documento,
                             Operadores = new List<Cuenta>(),
                             RepresentanteLegales = new List<RepresentanteLegal>()
                         });

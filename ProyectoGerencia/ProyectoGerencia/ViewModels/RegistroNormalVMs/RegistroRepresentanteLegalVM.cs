@@ -38,5 +38,7 @@ namespace ProyectoGerencia.ViewModels.RegistroNormalVMs
         public string CorreoElectronicoPersonaJuridica { get; set; }
 
         public string ContrasenaPersonaJuridica { get; set; }
+
+        public string Documento { get; set; }
     }
 }

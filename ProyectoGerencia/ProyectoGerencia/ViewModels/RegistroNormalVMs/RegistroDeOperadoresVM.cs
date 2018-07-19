@@ -16,6 +16,8 @@ namespace ProyectoGerencia.ViewModels.RegistroNormalVMs
 
         public string ContrasenaPersonaJuridica { get; set; }
 
+        public string Documento { get; set; }
+
         public string IdentificacionRep1 { get; set; }
 
         public string TipoIdentificacionRep1 { get; set; }

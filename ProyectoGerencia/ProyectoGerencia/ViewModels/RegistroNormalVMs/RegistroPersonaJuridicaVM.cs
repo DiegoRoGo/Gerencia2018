@@ -28,5 +28,10 @@ namespace ProyectoGerencia.ViewModels.RegistroNormalVMs
         [Display(Name = "Confirme la contraseña")]
         [Compare("Contrasena", ErrorMessage = "La contraseña y la confirmación deben ser iguales")]
         public string ConfirmarContrasena { get; set; }
+
+        [Required(ErrorMessage = "El archivo es requerido")]
+        public HttpPostedFileBase postedFile { get; set; }
+
+
     }
 }
