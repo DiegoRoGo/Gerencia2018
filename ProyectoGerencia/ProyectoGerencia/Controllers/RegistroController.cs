@@ -133,6 +133,11 @@ namespace ProyectoGerencia.Controllers
             return View();
         }
 
+        public ActionResult Terminos()
+        {
+            return View();
+        }
+
         private string GenerarCodigo()
         {
             Context context = new Context();

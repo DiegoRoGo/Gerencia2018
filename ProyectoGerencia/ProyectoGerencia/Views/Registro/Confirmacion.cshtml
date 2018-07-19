@@ -50,7 +50,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 @Html.CheckBoxFor(x => x.TerminosCondiciones)
-                @Html.LabelFor(model => model.TerminosCondiciones, htmlAttributes: new { @class = "control-label" })
+                <label class="control-label">He leído y acepto los <a href="localhost:50420/Registro/Terminos" target="_blank">terminos y condiciones</a></label>
             </div>
             <div class="col-md-offset-2 col-md-10">
                 @Html.ValidationMessageFor(model => model.TerminosCondiciones, "", new { @class = "text-danger" })

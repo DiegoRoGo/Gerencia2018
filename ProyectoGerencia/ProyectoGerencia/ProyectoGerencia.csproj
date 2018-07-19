@@ -221,6 +221,7 @@
     <Content Include="Views\PersonaJuridica\Create.cshtml" />
     <Content Include="Views\PersonaJuridica\RegistrarPrimerRepresentante.cshtml" />
     <Content Include="Views\PersonaJuridica\RegistrarSegundoRepresentante.cshtml" />
+    <Content Include="Views\Registro\Terminos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -29,7 +29,7 @@ namespace ProyectoGerencia.ViewModels.RegistroNormalVMs
         [Compare("Contrasena", ErrorMessage = "La contraseña y la confirmación deben ser iguales")]
         public string Confirmacion { get; set; }
         
-        [Display(Name = "He leído y acepto los terminos y condiciones")]
+        [Display(Name = @"He leído y acepto los <a href=""localhost:50420/Registro/Terminos"" target=""_blank"">terminos y condiciones</a>")]
         [Range(typeof(bool), "true", "true", ErrorMessage = "Debe aceptar los terminos y condiciones para activar su cuenta.")]
         public bool TerminosCondiciones { get; set; }
     }
