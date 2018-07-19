@@ -1,0 +1,60 @@
+﻿@model ProyectoGerencia.ViewModels.RegistroNormalVMs.RegistroDeOperadoresVM
+@{
+    ViewBag.Title = "RegistroDeOperadores";
+}
+
+<h2>Registro de Operadores</h2>
+
+<h3>Busqueda de Operadores</h3>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (!String.IsNullOrEmpty(ViewBag.Error))
+    {
+        <div class="alert alert-danger">
+            @ViewBag.Error
+        </div>
+    }
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @for (int i = 0; i < Model.Operadores.Count; i++)
+            {
+
+                @Html.DisplayFor(model => model.Operadores[i])@Html.HiddenFor(model => model.Operadores[i])
+                <br />
+            }
+
+            @Html.HiddenFor(m => m.ContrasenaPersonaJuridica)
+            @Html.HiddenFor(m => m.CorreoElectronicoPersonaJuridica)
+            @Html.HiddenFor(m => m.CorreoRep1)
+            @Html.HiddenFor(m => m.IdentificacionRep1)
+            @Html.HiddenFor(m => m.TipoIdentificacionRep1)
+            @Html.HiddenFor(m => m.NombreRep1)
+            @Html.HiddenFor(m => m.CorreoRep2)
+            @Html.HiddenFor(m => m.IdentificacionRep2)
+            @Html.HiddenFor(m => m.TipoIdentificacionRep2)
+            @Html.HiddenFor(m => m.NombreRep2)
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-2">
+                    <a href="http://localhost:50420" class="btn btn-danger">Cancel</a>
+                </div>
+                <div class="col-md-8">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+}

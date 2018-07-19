@@ -1,4 +1,4 @@
-﻿@model ProyectoGerencia.ViewModels.RegistroNormalVMs.RegistroRepresentanteLegal2VM
+﻿@model ProyectoGerencia.ViewModels.RegistroNormalVMs.RegistroSegundoRepresentanteLegalVM
 @{
     ViewBag.Title = "RegistrarSegundoRepresentante";
 }
@@ -16,49 +16,58 @@
         </div>
     }
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TipoSeleccionado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.TipoSeleccionado,
-               new SelectList(Model.Tipos, "Value", "Text"), "Select", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TipoSeleccionado, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.TipoSeleccionado, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.TipoSeleccionado,
+                   new SelectList(Model.Tipos, "Value", "Text"), "Select", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TipoSeleccionado, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Cedula, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Cedula, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cedula, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NombreCompleto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NombreCompleto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NombreCompleto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CorreoElect, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CorreoElect, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CorreoElect, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @Html.HiddenFor(m => m.ContrasenaPersonaJuridica)
+            @Html.HiddenFor(m => m.CorreoElectronicoPersonaJuridica)
+            @Html.HiddenFor(m => m.CorreoRep1)
+            @Html.HiddenFor(m => m.IdentificacionRep1)
+            @Html.HiddenFor(m => m.TipoIdentificacionRep1)
+            @Html.HiddenFor(m => m.NombreRep1)
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-2">
+                    <a href="http://localhost:50420" class="btn btn-danger">Cancel</a>
+                </div>
+                <div class="col-md-8">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Identificacion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Identificacion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Identificacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Correo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-2">
-                <a href="http://localhost:50420" class="btn btn-danger">Cancel</a>
-            </div>
-            <div class="col-md-8">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
 }

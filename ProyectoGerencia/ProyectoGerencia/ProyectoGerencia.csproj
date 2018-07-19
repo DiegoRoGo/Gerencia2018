@@ -170,8 +170,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\RegistroNormalVMs\ConfirmacionVM.cs" />
     <Compile Include="ViewModels\RegistroNormalVMs\NotificarActivacionVM.cs" />
+    <Compile Include="ViewModels\RegistroNormalVMs\RegistroDeOperadoresVM.cs" />
     <Compile Include="ViewModels\RegistroNormalVMs\RegistroPersonaJuridicaVM.cs" />
-    <Compile Include="ViewModels\RegistroNormalVMs\RegistroRepresentanteLegal2VM.cs" />
+    <Compile Include="ViewModels\RegistroNormalVMs\RegistroSegundoRepresentanteLegalVM.cs" />
     <Compile Include="ViewModels\RegistroNormalVMs\RegistroRepresentanteLegalVM.cs" />
     <Compile Include="ViewModels\RegistroNormalVMs\RegistroVM.cs" />
   </ItemGroup>
@@ -222,6 +223,8 @@
     <Content Include="Views\PersonaJuridica\RegistrarPrimerRepresentante.cshtml" />
     <Content Include="Views\PersonaJuridica\RegistrarSegundoRepresentante.cshtml" />
     <Content Include="Views\Registro\Terminos.cshtml" />
+    <Content Include="Views\PersonaJuridica\RegistroDeOperadores.cshtml" />
+    <Content Include="Views\PersonaJuridica\ConfirmacionRegistro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

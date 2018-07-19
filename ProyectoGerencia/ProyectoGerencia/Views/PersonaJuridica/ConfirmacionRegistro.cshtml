@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "ConfirmacionRegistro";
+}
+
+<div class="alert alert-success">
+    <strong>Vamos bien!!!</strong> El correo a sido registrado con éxito!!
+</div>
+
+<h3>Ya casi terminamos!! Solo unos pasos más!!!</h3>
+<p>Ha sido enviado un correo al e-mail @ViewBag.correo por favor, revisarlo para poder activar la cuenta y poder asignarle una contraseña</p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
