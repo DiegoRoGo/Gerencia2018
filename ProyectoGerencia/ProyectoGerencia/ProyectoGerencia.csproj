@@ -157,16 +157,22 @@
     <Compile Include="BusinessLogic\EmailService.cs" />
     <Compile Include="BusinessLogic\Encriptacion.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PersonaJuridicaController.cs" />
     <Compile Include="Controllers\RegistroController.cs" />
     <Compile Include="DataBase\Configuration\Context.cs" />
     <Compile Include="DataBase\Entities\Cuenta.cs" />
     <Compile Include="DataBase\Entities\Persona.cs" />
+    <Compile Include="DataBase\Entities\PersonaJuridica.cs" />
+    <Compile Include="DataBase\Entities\RepresentanteLegal.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\RegistroNormalVMs\ConfirmacionVM.cs" />
     <Compile Include="ViewModels\RegistroNormalVMs\NotificarActivacionVM.cs" />
+    <Compile Include="ViewModels\RegistroNormalVMs\RegistroPersonaJuridicaVM.cs" />
+    <Compile Include="ViewModels\RegistroNormalVMs\RegistroRepresentanteLegal2VM.cs" />
+    <Compile Include="ViewModels\RegistroNormalVMs\RegistroRepresentanteLegalVM.cs" />
     <Compile Include="ViewModels\RegistroNormalVMs\RegistroVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +218,9 @@
     <Content Include="Views\Registro\NotificarActivacion.cshtml" />
     <Content Include="Views\Registro\Confirmacion.cshtml" />
     <Content Include="Views\Registro\PostActivacion.cshtml" />
+    <Content Include="Views\PersonaJuridica\Create.cshtml" />
+    <Content Include="Views\PersonaJuridica\RegistrarPrimerRepresentante.cshtml" />
+    <Content Include="Views\PersonaJuridica\RegistrarSegundoRepresentante.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -16,6 +16,11 @@ namespace ProyectoGerencia.DataBase.Configuration
         public DbSet<Cuenta> Cuentas { get; set; }
         public DbSet<Persona> Personas { get; set; }
 
+
+        public DbSet<PersonaJuridica> PersonasJuridicas { get; set; }
+        public DbSet<RepresentanteLegal> RepresentanteLegales { get; set; }
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Configure StudentId as FK for StudentAddress

@@ -22,5 +22,7 @@ namespace ProyectoGerencia.DataBase.Entities
         public string CodigoDeVerificacion { get; set; }
 
         public virtual Persona Persona { get; set; }
+
+        public virtual PersonaJuridica PersonaJuridica { get; set; }
     }
 }
