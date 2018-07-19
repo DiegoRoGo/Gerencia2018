@@ -32,7 +32,8 @@
 
             @for (int i = 0; i < Model.Operadores.Count; i++)
             {
-
+                <h3>Lista de Operadores</h3>
+                <br/>
                 @Html.DisplayFor(model => model.Operadores[i])@Html.HiddenFor(model => model.Operadores[i])
                 <br />
             }

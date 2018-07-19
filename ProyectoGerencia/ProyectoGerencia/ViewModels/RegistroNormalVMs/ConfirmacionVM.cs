@@ -13,6 +13,8 @@ namespace ProyectoGerencia.ViewModels.RegistroNormalVMs
 
         [Required(ErrorMessage = "El código de verificación es requerido")]
         [Display(Name = "Código de verificación")]
+        [MinLength(10, ErrorMessage = "El Código debe tener al menos 10 caracteres")]
+        [MaxLength(10, ErrorMessage = "El Código no debe tener más de 10 caracteres")]
         public string CodigoVerificacion { get; set; }
 
         [Required(ErrorMessage = "La contraseña es requerida")]
@@ -26,7 +28,7 @@ namespace ProyectoGerencia.ViewModels.RegistroNormalVMs
         [Required(ErrorMessage = "La confirmación de la  contraseña es requerida")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirme la contraseña")]
-        [Compare("Contrasena", ErrorMessage = "La contraseña y la confirmación deben ser iguales")]
+        [Compare("Contrasena", ErrorMessage = "Ambas contraseñas deben de ser iguales")]
         public string Confirmacion { get; set; }
         
         [Display(Name = @"He leído y acepto los <a href=""localhost:50420/Registro/Terminos"" target=""_blank"">terminos y condiciones</a>")]

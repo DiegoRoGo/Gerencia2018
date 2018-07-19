@@ -26,7 +26,7 @@ namespace ProyectoGerencia.ViewModels.RegistroNormalVMs
         [Required(ErrorMessage = "La confirmación de la  contraseña es requerida")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirme la contraseña")]
-        [Compare("Contrasena", ErrorMessage = "La contraseña y la confirmación deben ser iguales")]
+        [Compare("Contrasena", ErrorMessage = "Ambas contraseñas deben de ser iguales")]
         public string ConfirmarContrasena { get; set; }
 
         [Required(ErrorMessage = "El archivo es requerido")]

@@ -28,9 +28,9 @@ namespace ProyectoGerencia.ViewModels.RegistroNormalVMs
 
         [Required(ErrorMessage = "Ingrese un número telefónico")]
         [Display(Name = "Número telefónico")]
-        [MinLength(8, ErrorMessage = "El número telefónico debe contener más de 8 caracteres")]
+        [MinLength(8, ErrorMessage = "El número telefónico debe contener un mínimo de 8 caracteres")]
         [MaxLength(15, ErrorMessage = "El número telefónico no puede contener más de 15 caracteres")]
-        [RegularExpression(@"\+?[\d- ]+", ErrorMessage ="El correo que se espera es con el formato +### ######## siendo la extensión opcional")]
+        [RegularExpression(@"\+?[\d- ]+", ErrorMessage = "El número telefónico que se espera es con el formato +### ######## siendo la extensión opcional")]
         public string Telefono { get; set; }
 
         [Required(ErrorMessage = "Ingrese el correo electrónico")]
