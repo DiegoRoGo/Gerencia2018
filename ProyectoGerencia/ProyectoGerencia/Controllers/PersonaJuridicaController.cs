@@ -1,4 +1,5 @@
-﻿using ProyectoGerencia.DataBase.Configuration;
+﻿using ProyectoGerencia.BusinessLogic;
+using ProyectoGerencia.DataBase.Configuration;
 using ProyectoGerencia.DataBase.Entities;
 using ProyectoGerencia.ViewModels.RegistroNormalVMs;
 using System;
@@ -167,7 +168,7 @@ namespace ProyectoGerencia.Controllers
 
                         Context.SaveChanges();
                     }
-                    return RedirectToAction("ConfirmacionRegistro", "PersonaJuridica", Operador.CorreoElectronicoPersonaJuridica);
+                    return RedirectToAction("ConfirmacionRegistro", "PersonaJuridica", new { Email = Operador.CorreoElectronicoPersonaJuridica });
                 }
                 ViewBag.Error = "Es necesario registrar operadores";
                 return View(Operador);
@@ -200,6 +201,7 @@ namespace ProyectoGerencia.Controllers
 
         public ActionResult ConfirmacionRegistro(string Email)
         {
+            new EmailService().SendEmail(Email, "1234");
             ViewBag.correo = Email;
             return View();
         }
