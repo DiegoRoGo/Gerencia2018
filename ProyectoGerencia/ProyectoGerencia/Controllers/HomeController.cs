@@ -26,5 +26,6 @@ namespace ProyectoGerencia.Controllers
 
             return View();
         }
+
     }
 }

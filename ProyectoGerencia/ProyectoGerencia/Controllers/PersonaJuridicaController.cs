@@ -14,6 +14,7 @@ namespace ProyectoGerencia.Controllers
     public class PersonaJuridicaController : Controller
     {
         // GET: PersonaJuridica
+
         public ActionResult Create()
         {
             return View(new RegistroPersonaJuridicaVM());
@@ -207,7 +208,6 @@ namespace ProyectoGerencia.Controllers
             return View(Operador);
         }
 
-
         public ActionResult ConfirmacionRegistro(string Email)
         {
             new EmailService().SendEmail(Email, "PersonaJuridica/Confirmacion");
@@ -230,5 +230,17 @@ namespace ProyectoGerencia.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+        //Parte 2 - Notificacion de Pagos - Daniel Lepiz / Javier Fernandez
+        /*
+        // Clase Controllers > Nombre del nuevo controller para Sprint 4
+        public ActionResult ConfirmacionPago(String Monto)
+        {
+            new EmailService().Facturas(Email, Monto);// Get de email del usuario a la DB
+            ViewBag.correo = Email;
+            return View();
+        }
+        */
+        //Parte 2 - Notificacion de Pagos
     }
 }
