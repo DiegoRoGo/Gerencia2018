@@ -25,7 +25,6 @@
                     <td class="tg-031e">Monto</td>
                     <td class="tg-031e">Monto</td>
                 </tr>
-                @{double total = 0.0;}
                     @foreach (var grupoFacturas in Model.PersonaJuridica.Facturas
                                 .OrderBy(m => m.FacturaId)
                                 .GroupBy(m => string.Format("{0:yyyyMMddHH}", m.Date)))
@@ -41,9 +40,9 @@
                                 }
                                 else
                                 {
-
                                     <td class="tg-031e">@factura.Debito</td>
-                                    total += factura.Debito;
+                                    Model.SaldoTotal += factura.Debito;
+                                    Model.FacturaId = (int)factura.FacturaId;
                                 }
                                 if (factura.Credito == 0)
                                 {
@@ -52,7 +51,7 @@
                                 else
                                 {
                                     <td class="tg-031e">@factura.Credito</td>
-                                    total -= factura.Credito;
+                                    Model.SaldoTotal -= factura.Credito;
                                 }
                                 
                             }
@@ -87,13 +86,13 @@
         <div class="form-group saldo-pendiente">
             <label for="saldo" class="col-lg-4 control-label">Saldo pendiente:</label>
             <div class="col-lg-8">
-                <p class="monto"><strong><span> ₡ @total</span></strong></p>
+                <p class="monto"><strong><span> ₡ @Model.SaldoTotal</span></strong></p>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-8">
                 @Html.ActionLink("Regresar", "ListaPersonaJuridica", "Pago", new { area = "" }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("Abonar Monto", "Abonar", "Pago", new { area = "" }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Abonar Monto", "Abonar", "Pago", new { Saldo =  Model.SaldoTotal, Id = Model.FacturaId }, new { @class = "btn btn-primary" })
             </div>
         </div>
 

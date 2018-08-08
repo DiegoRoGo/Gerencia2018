@@ -74,7 +74,7 @@ namespace ProyectoGerencia.BusinessLogic
             client.Send(from, to, subject, body);
         }
         
-        public void Facturas(string pEmail, string pMonto)
+        public void Facturas(string pEmail)
         {
             // Command line argument must the the SMTP host.
             SmtpClient client = new SmtpClient
@@ -95,12 +95,12 @@ namespace ProyectoGerencia.BusinessLogic
 
 
             // Specify the message content.
-            string body = $"Se le informa que se ha realizado el pago de sus impuestos bajo un monto de ₡{pMonto} colones.\n\n" +
+            string body = $"Se le informa que se ha realizado el pago de sus impuestos satisfactoriamente.\n\n" +
                 $"Le recomendamos que esté atento a su correo electrónico. En los siguientes minutos PayPal le estará informando acerca de su pago por la plataforma y consigo le mostrará la factura electrónica referente al pago.\n\n" +
                 $"Gracias por realizar sus pagos con nosotros.";
 
             // Specify the subject
-            string subject = "Confirmacion de la cuenta del proyecto de Gerencia";
+            string subject = "Confirmacion de pago del proyecto de Gerencia";
 
             //We send the email
             client.Send(from, to, subject, body);

@@ -166,6 +166,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Pago\AbonarVM.cs" />
     <Compile Include="ViewModels\Pago\DetallesVM.cs" />
     <Compile Include="ViewModels\Pago\ListaPersonaJuridicaVM.cs" />
     <Compile Include="ViewModels\Pago\PagoVM.cs" />
@@ -272,6 +273,8 @@
     <Content Include="Views\Pago\Index.cshtml" />
     <Content Include="Views\Pago\Detalles.cshtml" />
     <Content Include="Views\Pago\ListaPersonaJuridica.cshtml" />
+    <Content Include="Views\Pago\Notificacion.cshtml" />
+    <Content Include="Views\Pago\Abonar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

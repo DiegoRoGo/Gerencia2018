@@ -9,5 +9,8 @@ namespace ProyectoGerencia.ViewModels.Pago
     public class DetallesVM
     {
         public PersonaJuridica PersonaJuridica;
+
+        public double SaldoTotal;
+        public double FacturaId;
     }
 }

@@ -78,7 +78,7 @@
             <div class="form-group">
                 <label for="monto" class="col-lg-4 control-label">Monto a abonar: &#162;</label>
                 <div class="col-lg-8">
-                    @*<input type="text" class="form-control" name="abono" id="abono" placeholder="###.###,##">*@
+                    <input type="text" class="form-control" name="abono" id="abono" placeholder="###.###,##">
                     @Html.EditorFor(model => model.NewMonto, new { htmlAttributes = new { @class = "form-control", @name = "abono", @id = "abono", @placeholder = "###.###,##" } })
                     @Html.ValidationMessageFor(model => model.NewMonto, "", new { @class = "text-danger" })
                 </div>
