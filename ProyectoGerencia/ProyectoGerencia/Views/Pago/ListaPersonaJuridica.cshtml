@@ -1,0 +1,51 @@
+﻿@model ProyectoGerencia.ViewModels.Pago.ListaPersonaJuridicaVM
+@{
+    ViewBag.Title = "ListaPersonaJuridica";
+}
+
+<div class="col-lg-6">
+    <form class="form-horizontal" action="/Pago/Index" method="POST" id="myform">
+
+
+        <div class="container">
+            <h2>Lista de Personas Juridicas</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Correo</th>
+                        <th>Facturas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var persona in Model.PersonasJuridicas)
+                    {
+                        <tr>
+                            <td>@persona.Correo</td>
+                            <td>@Html.ActionLink("Ver Facturas", "Detalles", "Pago", new { id = persona.PersonaJuridicaId }, null)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+        @*Mensaje de entrada al modulo de pagos*@
+        @*<fieldset id="realizar_pagos" class="">
+                <legend>Menu de perfil</legend>
+                <div class="form-group">
+                    <label for="pagos" class="col-lg-4 control-label">Realizar pagos</label>
+                    <div class="col-lg-8">
+                        @Html.ActionLink("Continuar", "ListaFacturas", "PagoController", new { area = "" }, new { @class = "btn btn-primary next" })
+                        @*<a class="btn btn-primary next">Continuar</a>
+                    </div>
+                </div>
+            </fieldset>*@
+
+    </form>
+</div>
+@section scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/additional-methods.js"></script>
+    <script src="~/Scripts/form-validation.js"></script>
+}

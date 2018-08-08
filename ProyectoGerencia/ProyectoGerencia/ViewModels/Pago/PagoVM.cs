@@ -8,6 +8,10 @@ namespace ProyectoGerencia.ViewModels.Pago
 {
     public class PagoVM
     {
+        [Required(ErrorMessage = "El monto por abonar debe de ser válido.")]
+        [Range(1, double.MaxValue, ErrorMessage = "Digite montos mayores a ₡1")]
+        public double Monto { get; set; }
+        
         public List<string> Montos { get; set; }
 
         [Required]

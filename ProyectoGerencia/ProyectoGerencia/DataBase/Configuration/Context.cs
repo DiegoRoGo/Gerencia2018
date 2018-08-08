@@ -20,6 +20,8 @@ namespace ProyectoGerencia.DataBase.Configuration
         public DbSet<PersonaJuridica> PersonasJuridicas { get; set; }
         public DbSet<RepresentanteLegal> RepresentanteLegales { get; set; }
 
+        public DbSet<Factura> Facturas { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

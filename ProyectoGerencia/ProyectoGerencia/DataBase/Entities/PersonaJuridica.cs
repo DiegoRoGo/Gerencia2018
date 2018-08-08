@@ -21,5 +21,7 @@ namespace ProyectoGerencia.DataBase.Entities
         public virtual ICollection<Cuenta> Operadores { get; set; }
 
         public virtual ICollection<RepresentanteLegal> RepresentanteLegales { get; set; }
+
+        public virtual ICollection<Factura> Facturas { get; set; }
     }
 }

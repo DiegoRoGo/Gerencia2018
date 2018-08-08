@@ -1,0 +1,107 @@
+﻿@model ProyectoGerencia.ViewModels.Pago.DetallesVM
+@{
+    ViewBag.Title = "Detalle";
+}
+
+@section styles{
+    <link rel="stylesheet" href="~/Content/style.css" />
+}
+
+<div class="col-lg-6">
+    <form class="form-horizontal" action="/Pago/Index" method="POST" id="myform">
+
+
+        <div class="container">
+            <h2>Detalles</h2>
+            <p>Despligue de saldos o cuenta corriente:</p>
+            <table class="tg">
+                <tr>
+                    <th class="tg-s6z2">Detalle</th>
+                    <th class="tg-031e">Debito</th>
+                    <th class="tg-031e">Credito</th>
+                </tr>
+                <tr class="col-titles">
+                    <td class="tg-031e">Impuesto - Tipo (D/C) - Descripcion - Fecha</td>
+                    <td class="tg-031e">Monto</td>
+                    <td class="tg-031e">Monto</td>
+                </tr>
+                @{double total = 0.0;}
+                    @foreach (var grupoFacturas in Model.PersonaJuridica.Facturas
+                                .OrderBy(m => m.FacturaId)
+                                .GroupBy(m => string.Format("{0:yyyyMMddHH}", m.Date)))
+                {
+                        foreach (var factura in grupoFacturas)
+                        {
+                        <tr>
+                            @{
+                            <td class="tg-031e">@factura.NombreImpuesto - @factura.TipoImpuesto - @factura.DescripcionImpuesto - @factura.Date </td>
+                                if (factura.Debito == 0)
+                                {
+                                    <td class="tg-031e">&ndash;</td>
+                                }
+                                else
+                                {
+
+                                    <td class="tg-031e">@factura.Debito</td>
+                                    total += factura.Debito;
+                                }
+                                if (factura.Credito == 0)
+                                {
+                                    <td class="tg-031e">&ndash;</td>
+                                }
+                                else
+                                {
+                                    <td class="tg-031e">@factura.Credito</td>
+                                    total -= factura.Credito;
+                                }
+                                
+                            }
+
+                        </tr>
+                    }
+
+                }
+                @*<tr>
+                    <td class="tg-031e">Bienes Inmuebles - Debito - Bienes Inmuebles - 07/07/2018</td>
+                    <td class="tg-031e">₡ 50000</td>
+                    <td class="tg-031e">&ndash;</td>
+                </tr>
+                <tr>
+                    <td class="tg-031e">Bienes Inmuebles - Credito - Monto Depositado - @DateTime.Now.Date</td>
+                    <td class="tg-031e">&ndash;</td>
+                    <td class="tg-031e">₡ 50000</td>
+                </tr>*@
+
+
+                @*@for (int i = 0; i < Model.PersonaJuridica.Facturas.Count; i++)
+        {
+            <tr>
+                <td class="tg-031e">Bienes Inmuebles - Credito - Monto Depositado - @DateTime.Now.Date</td>
+                <td class="tg-031e">&ndash;</td>
+                <td class="tg-031e">&#162; @Html.DisplayFor(model => model.Montos[i])@Html.HiddenFor(model => model.Montos[i])</td>
+            </tr>
+        }*@
+            </table>
+        </div>
+
+        <div class="form-group saldo-pendiente">
+            <label for="saldo" class="col-lg-4 control-label">Saldo pendiente:</label>
+            <div class="col-lg-8">
+                <p class="monto"><strong><span> ₡ @total</span></strong></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-8">
+                @Html.ActionLink("Regresar", "ListaPersonaJuridica", "Pago", new { area = "" }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Abonar Monto", "Abonar", "Pago", new { area = "" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+
+    </form>
+</div>
+@section scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/additional-methods.js"></script>
+    <script src="~/Scripts/form-validation.js"></script>
+}

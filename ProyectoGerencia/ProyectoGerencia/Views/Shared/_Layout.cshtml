@@ -15,9 +15,8 @@
             <nav class="navbar navbar-expand-sm">
                 @Html.ActionLink("Nombre de aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 <ul class="nav navbar-nav">
-                    <li class="nav-item">@Html.ActionLink("Inicio", "Index", "Home", new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Registrarse", "Registro", "Registro", new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Pago", "Index", "Pago")</li>
+                    <li class="nav-item">@Html.ActionLink("Registrarse", "Registro", "Registro", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Pago", "ListaPersonaJuridica", "Pago", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
             </nav>
         </div>
