@@ -2,12 +2,25 @@
 @{
     ViewBag.Title = "Abonar";
 }
+@ViewBag.Error
+
+@section styles{
+    <style type="text/css">
+        .myButton {
+            background: url(/images/Btn.PNG) no-repeat;
+            cursor: pointer;
+            width: auto;
+            height: auto;
+            border: none;
+        }
+    </style>
+}
 
 <h2>Abonar</h2>
 <form method="post">
 
     <div class="form-group saldo-pendiente">
-        <label for="saldo" class="col-lg-4 control-label">Saldo pendiente: ₡ @Model.SaldoTotal</label>
+        <label for="saldo" class="col-lg-4 control-label">Saldo pendiente: ₡ @Html.DisplayFor(model => model.SaldoTotal)@Html.HiddenFor(model => model.SaldoTotal)</label>
         @*<div class="col-lg-8">
                 <p class="monto"><strong><span>###.###,##</span></strong></p>
             </div>*@
@@ -22,7 +35,8 @@
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-8">
             @Html.ActionLink("Regresar", "ListaPersonaJuridica", "Pago", new { area = "" }, new { @class = "btn btn-primary" })
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="myButton"><img src="https://www.paypalobjects.com/webstatic/es_MX/mktg/logos-buttons/redesign/btn_10.png" alt="PayPal" /></button>
         </div>
     </div>
+    @Html.HiddenFor(model => model.FacturaId)
 </form>

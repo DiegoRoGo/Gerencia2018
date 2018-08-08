@@ -57,19 +57,20 @@ namespace ProyectoGerencia.Controllers
             factura.PersonaJuridica.PersonaJuridicaId = _PersonaJuridicaId;
             return factura;
         }
-
-        [Route("{controller}/{action}/{id}")]
+        
         public ActionResult Abonar(double Saldo, int Id)
         {
-            var model = new AbonarVM();
-
-            model.SaldoTotal = Saldo;
-            model.FacturaId = Id;
-            return View(model);
+            return View(new AbonarVM
+            {
+                SaldoTotal = Saldo,
+                FacturaId = Id,
+                MontoAbonar = 0
+            });
         }
 
-        public ActionResult Notificacion()
+        public ActionResult Notificacion(string Email)
         {
+            ConfirmacionPago(Email);
             return View();
         }
 
@@ -84,26 +85,32 @@ namespace ProyectoGerencia.Controllers
 
 
         [HttpPost]
-        public ActionResult Abonar(AbonarVM model)
+        public ActionResult Abonar(AbonarVM AbonarModel)
         {
-            var correoPJ = new object();
-            int id1 = 0;
-            using (Context Context = new Context())
+            if (ModelState.IsValid && AbonarModel.MontoAbonar <= AbonarModel.SaldoTotal)
             {
-                var factura = Context.Facturas.SingleOrDefault(item => item.FacturaId == model.FacturaId);
-                if (factura != null)
+                using (var Context = new Context())
                 {
-                    Context.Facturas.Add(CrearFactura(factura.NombreImpuesto, "Credito", factura.DescripcionImpuesto,
-                        DateTime.Now, model.MontoAbonar, factura.PersonaJuridica.PersonaJuridicaId));
-                    id1 = factura.PersonaJuridica.PersonaJuridicaId;
+                    var Facs = Context.Facturas.ToList();
+                    var Fac = Context.Facturas.SingleOrDefault(x => x.FacturaId == AbonarModel.FacturaId);
+                    Context.Facturas.Add(new Factura
+                    {
+                        NombreImpuesto = Fac.NombreImpuesto,
+                        TipoImpuesto = "Credito",
+                        DescripcionImpuesto = Fac.DescripcionImpuesto,
+                        Date = DateTime.Now,
+                        Debito = 0,
+                        Credito = AbonarModel.MontoAbonar,
+                        PersonaJuridica = Fac.PersonaJuridica
+                    });
                     Context.SaveChanges();
+                    return RedirectToAction("Notificacion", "Pago", new { Email = Fac.PersonaJuridica.Correo });
                 }
-
-                correoPJ = Context.PersonasJuridicas.Single(persona => persona.PersonaJuridicaId == id1).Correo;
             }
-            return View(RedirectToAction("Notificacion", "Pago", correoPJ));
+            ViewBag.Error = "Hubo un error jaja salu2";
+            return View(AbonarModel);
         }
-
+        
         [HttpPost]
         public ActionResult Index(PagoVM Pago)
         {

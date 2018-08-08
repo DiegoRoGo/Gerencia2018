@@ -11,6 +11,6 @@ namespace ProyectoGerencia.ViewModels.Pago
         public PersonaJuridica PersonaJuridica;
 
         public double SaldoTotal;
-        public double FacturaId;
+        public int FacturaId;
     }
 }
