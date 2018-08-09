@@ -36,9 +36,10 @@ namespace ProyectoGerencia.Controllers
         public ActionResult ListaPersonaJuridica()
         {
             var model = new ListaPersonaJuridicaVM();
-            using (Context Context = new Context())
+            using (Context context = new Context())
             {
-                model.PersonasJuridicas = Context.PersonasJuridicas.ToList();
+                //context.Database.Connection.Open();
+                model.PersonasJuridicas = context.PersonasJuridicas.ToList();
             }
             return View(model);
 
@@ -107,7 +108,7 @@ namespace ProyectoGerencia.Controllers
                     return RedirectToAction("Notificacion", "Pago", new { Email = Fac.PersonaJuridica.Correo });
                 }
             }
-            ViewBag.Error = "Hubo un error jaja salu2";
+            ViewBag.Error = "Se produjo un error al momento de abonar.";
             return View(AbonarModel);
         }
         

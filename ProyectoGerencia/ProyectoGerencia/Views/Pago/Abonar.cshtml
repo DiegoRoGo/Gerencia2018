@@ -2,7 +2,13 @@
 @{
     ViewBag.Title = "Abonar";
 }
-@ViewBag.Error
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        <strong>Ups:</strong>   @ViewBag.Error
+    </div>
+}
 
 @section styles{
     <style type="text/css">
