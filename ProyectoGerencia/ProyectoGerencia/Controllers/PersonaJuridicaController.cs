@@ -27,7 +27,7 @@ namespace ProyectoGerencia.Controllers
             {
                 using (Context Context = new Context())
                 {
-                    if (Context.PersonasJuridicas.Any(x => x.Correo == Persona.CorreoElectronico))
+                    if (Context.PersonasJuridicas.Any(x => x.Correo == Persona.CorreoElectronico) || Context.Cuentas.Any(x => x.Correo == Persona.CorreoElectronico))
                     {
                         ViewBag.Error = "Ya hay un usuario con este correo.";
                         return View(new RegistroPersonaJuridicaVM());
@@ -38,6 +38,13 @@ namespace ProyectoGerencia.Controllers
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
+                }
+                if (!String.Equals(Persona.postedFile.ContentType, "application/pdf"))
+                {
+                    ViewBag.Error = "El archivo tiene que ser un PDF";
+                    return View(new RegistroPersonaJuridicaVM() {
+                        CorreoElectronico = Persona.CorreoElectronico
+                    });
                 }
                 Persona.postedFile.SaveAs(path + Path.GetFileName(Persona.postedFile.FileName));
                 Persona.NombreDoc = Persona.postedFile.FileName;
@@ -104,7 +111,7 @@ namespace ProyectoGerencia.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(RepresentanteLegal.Cedula != RepresentanteLegal.IdentificacionRep1)
+                if(RepresentanteLegal.Cedula != RepresentanteLegal.IdentificacionRep1 && RepresentanteLegal.CorreoElect != RepresentanteLegal.CorreoRep1)
                 {
                     return RedirectToAction("RegistroDeOperadores", "PersonaJuridica", RepresentanteLegal);
                 }
@@ -115,6 +122,7 @@ namespace ProyectoGerencia.Controllers
                 new SelectListItem { Value = "2", Text = "DIMEX" },
                 new SelectListItem { Value = "3", Text = "Pasaporte" }
             };
+            ViewBag.Error = "El representante dos no puede tener la misma cedula ni correo que el representante 1";
             return View(RepresentanteLegal);
         }
 
@@ -152,7 +160,8 @@ namespace ProyectoGerencia.Controllers
                             Documento = Operador.Documento,
                             Activacion = false,
                             Operadores = new List<Cuenta>(),
-                            RepresentanteLegales = new List<RepresentanteLegal>()
+                            RepresentanteLegales = new List<RepresentanteLegal>(),
+                            Facturas = new List<Factura>()
                         });
 
                         foreach (var Item in Operador.Operadores)
@@ -160,7 +169,7 @@ namespace ProyectoGerencia.Controllers
                             PersonaJuridica.Operadores.Add(Context.Cuentas.Where(x=> x.Correo == Item).SingleOrDefault());
                         }
 
-                        PersonaJuridica.RepresentanteLegales.Add(new DataBase.Entities.RepresentanteLegal
+                        PersonaJuridica.RepresentanteLegales.Add(new RepresentanteLegal
                         {
                             CorreoElectronico = Operador.CorreoRep1,
                             Identificacion = Operador.IdentificacionRep1,
@@ -168,14 +177,22 @@ namespace ProyectoGerencia.Controllers
                             Tipo = (RepresentanteLegal.TipoIdentificacion)Enum.Parse(typeof(RepresentanteLegal.TipoIdentificacion), Operador.TipoIdentificacionRep1)
                         });
 
-                        PersonaJuridica.RepresentanteLegales.Add(new DataBase.Entities.RepresentanteLegal
+                        PersonaJuridica.RepresentanteLegales.Add(new RepresentanteLegal
                         {
                             CorreoElectronico = Operador.CorreoRep2,
                             Identificacion = Operador.IdentificacionRep2,
                             Nombre = Operador.NombreRep2,
                             Tipo = (RepresentanteLegal.TipoIdentificacion)Enum.Parse(typeof(RepresentanteLegal.TipoIdentificacion), Operador.TipoIdentificacionRep2)
                         });
-
+                        PersonaJuridica.Facturas.Add(new Factura()
+                        {
+                            Credito = 0,
+                            Debito = 1500,
+                            Date = DateTime.Now,
+                            DescripcionImpuesto = "Pago de casa",
+                            NombreImpuesto = "Impuesto sobre bienes inmuebles",
+                            TipoImpuesto = "Crédito"
+                        });
                         Context.SaveChanges();
                     }
                     return RedirectToAction("ConfirmacionRegistro", "PersonaJuridica", new { Email = Operador.CorreoElectronicoPersonaJuridica });

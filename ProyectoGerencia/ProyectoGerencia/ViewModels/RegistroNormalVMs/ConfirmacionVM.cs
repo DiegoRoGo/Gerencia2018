@@ -13,8 +13,6 @@ namespace ProyectoGerencia.ViewModels.RegistroNormalVMs
 
         [Required(ErrorMessage = "El código de verificación es requerido")]
         [Display(Name = "Código de verificación")]
-        [MinLength(10, ErrorMessage = "El Código debe tener al menos 10 caracteres")]
-        [MaxLength(10, ErrorMessage = "El Código no debe tener más de 10 caracteres")]
         public string CodigoVerificacion { get; set; }
 
         [Required(ErrorMessage = "La contraseña es requerida")]

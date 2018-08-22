@@ -30,6 +30,7 @@ namespace ProyectoGerencia.ViewModels.RegistroNormalVMs
         public string ConfirmarContrasena { get; set; }
 
         [Required(ErrorMessage = "El archivo es requerido")]
+        [Display(Name = "Archivo")]
         public HttpPostedFileBase postedFile { get; set; }
 
         public string NombreDoc { get; set; }
