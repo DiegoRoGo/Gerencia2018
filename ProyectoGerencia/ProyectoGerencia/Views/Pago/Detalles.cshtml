@@ -92,7 +92,10 @@
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-8">
                 @Html.ActionLink("Regresar", "ListaPersonaJuridica", "Pago", new { area = "" }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("Abonar Monto", "Abonar", "Pago", new { Saldo =  Model.SaldoTotal, Id = Model.FacturaId }, new { @class = "btn btn-primary" })
+                @if (Model.SaldoTotal > 0)
+                {
+                    @Html.ActionLink("Abonar Monto", "Abonar", "Pago", new { Saldo = Model.SaldoTotal, Id = Model.FacturaId }, new { @class = "btn btn-primary" })
+                }
             </div>
         </div>
 
